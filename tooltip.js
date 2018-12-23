@@ -7,8 +7,13 @@ class Tooltip extends HTMLElement {
     connectedCallback() {
         const tooltipIcon = document.createElement('span');
         tooltipIcon.textContent = ' (?)';
+        tooltipIcon.addEventListener('mouseenter', this._showTooltip);
         this.appendChild(tooltipIcon);
         console.log('The connectedCallback is invoked!')
+    }
+
+    _showTooltip() {
+        console.log('Event listner is working!')
     }
 }
 
