@@ -3,6 +3,7 @@ class Tooltip extends HTMLElement {
         super();
         this._tooltipContainer;
         this._tooltipText = 'Some hurdcoded tooltip text!';
+        this.attachShadow({mode: 'open'}); // Attach shadow DOM to custom element
     }
 
     // Only in this place we can place our element in DOM
@@ -14,18 +15,19 @@ class Tooltip extends HTMLElement {
         tooltipIcon.textContent = ' (?)';
         tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this));
         tooltipIcon.addEventListener('mouseleave', this._destroyTooltip.bind(this));
-        this.appendChild(tooltipIcon);
+        // Append new element to shadow DOM
+        this.shadowRoot.appendChild(tooltipIcon); 
         console.log('The connectedCallback is invoked!')
     }
 
     _showTooltip() {
         this._tooltipContainer = document.createElement('div');
         this._tooltipContainer.textContent = this._tooltipText;
-        this.appendChild(this._tooltipContainer);
+        this.shadowRoot.appendChild(this._tooltipContainer);
     }
 
     _destroyTooltip() {
-        this.removeChild(this._tooltipContainer);
+        this.shadowRoot.removeChild(this._tooltipContainer);
     }
 }
 
