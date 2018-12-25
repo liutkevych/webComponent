@@ -5,6 +5,13 @@ class Tooltip extends HTMLElement {
         this._tooltipText = 'Some hurdcoded tooltip text!';
         this.attachShadow({mode: 'open'}); // Attach shadow DOM to custom element
         this.shadowRoot.innerHTML = `
+            <style>
+                div {
+                    background: grey;
+                    position: absolute;
+                    z-index: 10;
+                }
+            </style>
             <slot>Some default value<hr>with hr element</slot>
             <span> (?)</span>
         `;
@@ -26,9 +33,6 @@ class Tooltip extends HTMLElement {
     _showTooltip() {
         this._tooltipContainer = document.createElement('div');
         this._tooltipContainer.textContent = this._tooltipText;
-        this._tooltipContainer.style.background = 'grey';
-        this._tooltipContainer.style.position = 'absolute';
-        this._tooltipContainer.style.zIndex = '10';
         this.shadowRoot.appendChild(this._tooltipContainer);
     }
 
