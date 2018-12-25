@@ -8,7 +8,14 @@
     <script src="tooltip.js"></script>
 </head>
 <body>
-    <keepit-tooltip-ui1 text="Web component tooltip"></keepit-tooltip-ui1>
+    <template id="tooltip-template">
+        <span> (?)</span>
+    </template>
+
+    <div>
+        <keepit-tooltip-ui1 text="Web component tooltip"></keepit-tooltip-ui1>
+    </div>
+    
     <keepit-tooltip-ui1 text="Another text for tooltip."></keepit-tooltip-ui1>
     <keepit-tooltip-ui1></keepit-tooltip-ui1>
 </body>
