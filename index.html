@@ -9,14 +9,26 @@
 </head>
 <body>
     <template id="tooltip-template">
+        <!-- This value would be added to epty custom element -->
+        <slot>Some default value
+            <hr>
+            with hr element
+        </slot>
         <span> (?)</span>
     </template>
 
     <div>
-        <keepit-tooltip-ui1 text="Web component tooltip"></keepit-tooltip-ui1>
+        <keepit-tooltip-ui1 text="Web component tooltip">Web component</keepit-tooltip-ui1>
+        are awesome!
+    </div>
+
+    <div>
+        <keepit-tooltip-ui1 text="Another text for tooltip.">Here we go</keepit-tooltip-ui1>
+    </div>
+
+    <div>
+        <keepit-tooltip-ui1></keepit-tooltip-ui1>
     </div>
     
-    <keepit-tooltip-ui1 text="Another text for tooltip."></keepit-tooltip-ui1>
-    <keepit-tooltip-ui1></keepit-tooltip-ui1>
 </body>
 </html>
