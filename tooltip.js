@@ -4,8 +4,10 @@ class Tooltip extends HTMLElement {
         this._tooltipContainer;
         this._tooltipText = 'Some hurdcoded tooltip text!';
         this.attachShadow({mode: 'open'}); // Attach shadow DOM to custom element
-        const template = document.querySelector('#tooltip-template');
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        this.shadowRoot.innerHTML = `
+            <slot>Some default value<hr>with hr element</slot>
+            <span> (?)</span>
+        `;
     }
 
     // Only in this place we can place our element in  real DOM
