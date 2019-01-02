@@ -67,6 +67,12 @@ class Tooltip extends HTMLElement {
 
     attributeChangedCallback(name, oldValue, newValue) {
         console.log(name, oldValue, newValue);
+        if (oldValue === newValue) {
+            return;
+        }
+        if(name === 'text') {
+            this._tooltipText = newValue;
+        }
     }
 
     static get observedAttributes() {
