@@ -7,13 +7,48 @@ class Tooltip extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 div {
-                    background: grey;
+                    font-weight: normal;
+                    background: black;
+                    color: white;
                     position: absolute;
+                    top: 1.5rem;
+                    left: 0.75rem;
                     z-index: 10;
+                    padding: 0.15rem;
+                    border-radius: 3px;
+                    box-shadow: 1px 1px 6px rgba(0,0,0,0.26);
+                }
+                .highlight {
+                    background-color: red;
+                }
+
+                ::slotted(.highlight) {
+                    border-bottom: 2px solid orange;
+                }
+
+                :host {
+                    padding: 0.15rem;
+                }
+
+                :host(.component-syle) {
+                    background-color: var(--color-primary, #ccc);
+                    
+                }
+
+                :host-context(p) {
+                    font-weight: bold;
+                }
+
+                .icon {
+                    background: black;
+                    color: white;
+                    padding: 0.15rem 0.5rem;
+                    text-align: center;
+                    border-radius: 50%;
                 }
             </style>
-            <slot>Some default value<hr>with hr element</slot>
-            <span> (?)</span>
+            <slot>Some default value</slot>
+            <span class="icon">?</span>
         `;
     }
 
@@ -28,6 +63,14 @@ class Tooltip extends HTMLElement {
         // Append new element to shadow DOM
         this.shadowRoot.appendChild(tooltipIcon); 
         this.style.position = 'relative';
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        console.log(name, oldValue, newValue);
+    }
+
+    static get observedAttributes() {
+        return ['text'];
     }
 
     _showTooltip() {
