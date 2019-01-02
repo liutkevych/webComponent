@@ -1,7 +1,6 @@
 class Tooltip extends HTMLElement {
     constructor() {
         super();
-        this._tooltipContainer;
         this._tooltipIcon;
         this._tooltipText = 'Some hurdcoded tooltip text!';
         this.attachShadow({mode: 'open'}); // Attach shadow DOM to custom element
@@ -29,6 +28,7 @@ class Tooltip extends HTMLElement {
 
                 :host {
                     padding: 0.15rem;
+                    position: relative;
                 }
 
                 :host(.component-syle) {
@@ -61,7 +61,7 @@ class Tooltip extends HTMLElement {
         this._tooltipIcon = this.shadowRoot.querySelector('span');
         this._tooltipIcon.addEventListener('mouseenter', this._showTooltip.bind(this));
         this._tooltipIcon.addEventListener('mouseleave', this._destroyTooltip.bind(this));
-        this.style.position = 'relative';
+
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -85,14 +85,27 @@ class Tooltip extends HTMLElement {
 
     }
 
+    _render() {
+        let tooltipContainer = this.shadowRoot.querySelector('div');
+        if (this._tooltipVisible) {
+            tooltipContainer = document.createElement('div');
+            tooltipContainer.textContent = this._tooltipText;
+            this.shadowRoot.appendChild(tooltipContainer);
+        } else {
+            if (tooltipContainer) {
+                this.shadowRoot.removeChild(tooltipContainer);
+            }
+        }
+    }
+
     _showTooltip() {
-        this._tooltipContainer = document.createElement('div');
-        this._tooltipContainer.textContent = this._tooltipText;
-        this.shadowRoot.appendChild(this._tooltipContainer);
+        this._tooltipVisible = true;
+        this._render();
     }
 
     _destroyTooltip() {
-        this.shadowRoot.removeChild(this._tooltipContainer);
+        this._tooltipVisible = false;
+        this._render();
     }
 }
 
